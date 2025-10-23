@@ -1,8 +1,12 @@
 -- cfCrowdControl: Simple CC display addon
-local addon = CreateFrame("Frame")
+cfCrowdControl = {}
+local addon = cfCrowdControl
+
+-- Create event frame
+local eventFrame = CreateFrame("Frame")
 
 -- Event handler
-addon:SetScript("OnEvent", function(self, event, ...)
+eventFrame:SetScript("OnEvent", function(self, event, ...)
 	if event == "LOSS_OF_CONTROL_ADDED" then
 		-- Handle both payload formats (eventIndex only, or unitTarget + eventIndex)
 		local eventIndexOrUnit, eventIndexOrNothing = ...
@@ -17,4 +21,4 @@ addon:SetScript("OnEvent", function(self, event, ...)
 end)
 
 -- Initialize
-addon:RegisterEvent("LOSS_OF_CONTROL_ADDED")
+eventFrame:RegisterEvent("LOSS_OF_CONTROL_ADDED")

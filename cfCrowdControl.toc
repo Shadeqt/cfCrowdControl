@@ -4,4 +4,4 @@
 ## Author: Cowfoot
 ## Version: 1.0
 
-Core.lua
+cfCrowdControl.lua
