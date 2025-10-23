@@ -1,0 +1,7 @@
+## Interface: 11508
+## Title: cfCrowdControl
+## Notes: Simple CC display in center of screen
+## Author: Cowfoot
+## Version: 1.0
+
+Core.lua
