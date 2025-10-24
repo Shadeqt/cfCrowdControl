@@ -1,7 +1,8 @@
 ## Interface: 11508
-## Title: cfCrowdControl
-## Notes: Simple CC display in center of screen
-## Author: Cowfoot
-## Version: 1.0
+## Title:     cfCrowdControl
+## Notes:     Optimized CC display with priority system, redundancy filtering, and cooldown spirals
+## Author:    Cowfoot
+## Version:   1.0
 
+# Core module
 cfCrowdControl.lua
