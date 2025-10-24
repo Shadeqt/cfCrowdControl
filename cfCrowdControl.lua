@@ -2,7 +2,7 @@
 cfCrowdControl = {}
 local addon = cfCrowdControl
 
--- Localized API calls
+-- WoW API calls
 local _C_LossOfControl = C_LossOfControl
 local _CreateFrame = CreateFrame
 
