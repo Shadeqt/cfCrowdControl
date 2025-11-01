@@ -1,18 +1,6 @@
--- cfCrowdControl: Simple CC display addon
+-- Module constants
+local MAX_CC_SLOTS = 5 -- 5, maximum CC slots to check
 
--- Lua built-ins
-local ipairs = ipairs
-local wipe = wipe
-local format = string.format
-local tostring = tostring
-local print = print
-
--- WoW API calls
-local _C_LossOfControl = C_LossOfControl
-local _CreateFrame = CreateFrame
-local _GetTime = GetTime
-
--- CC configuration: priority and default texture per locType
 local CC_PRIORITY = {
 	STUN = {priority = 60, texture = "Interface\\Icons\\Ability_Warrior_WarCry"},
 	FEAR = {priority = 60, texture = "Interface\\Icons\\Spell_Shadow_Possession"},
@@ -29,31 +17,22 @@ local CC_PRIORITY = {
 	ROOT = {priority = 20, texture = "Interface\\Icons\\Spell_Nature_StrangleVines"},
 }
 
--- Track all active CCs
+-- Module states
 local activeCCs = {}
-
--- Track last UPDATE time to filter redundant events
 local lastUpdateTime = 0
 
--- Maximum CC slots to check
-local MAX_CC_SLOTS = 5
-
--- Create center screen icon frame
-local iconFrame = _CreateFrame("Frame", nil, UIParent)
+local iconFrame = CreateFrame("Frame", nil, UIParent)
 iconFrame:SetSize(64, 64)
 iconFrame:SetPoint("CENTER", UIParent, "CENTER", 0, 0)
 iconFrame:Hide()
 
--- Create texture for the CC icon
 local texture = iconFrame:CreateTexture(nil, "ARTWORK")
 texture:SetAllPoints()
 
--- Create cooldown spiral overlay
-local cooldown = _CreateFrame("Cooldown", nil, iconFrame, "CooldownFrameTemplate")
+local cooldown = CreateFrame("Cooldown", nil, iconFrame, "CooldownFrameTemplate")
 cooldown:SetAllPoints()
 cooldown:SetHideCountdownNumbers(true)
 
--- Select highest priority CC to display
 local function GetHighestPriorityCC()
 	local selectedCC = nil
 	local maxPriority = -1
@@ -91,7 +70,7 @@ end
 
 -- Check if this is a redundant event in the same frame
 local function IsRedundantUpdate()
-	local currentTime = _GetTime()
+	local currentTime = GetTime()
 	if currentTime == lastUpdateTime then
 		return true
 	end
@@ -104,7 +83,7 @@ local function RebuildActiveCCs()
 	wipe(activeCCs)
 
 	for i = 1, MAX_CC_SLOTS do
-		local data = _C_LossOfControl.GetActiveLossOfControlData(i)
+		local data = C_LossOfControl.GetActiveLossOfControlData(i)
 		if data and data.duration and data.duration > 0 then
 			if not CC_PRIORITY[data.locType] then
 				print(format("WARNING: Unknown locType '%s' from spell '%s'",
@@ -122,7 +101,7 @@ local function RebuildActiveCCs()
 end
 
 -- Create event frame
-local eventFrame = _CreateFrame("Frame")
+local eventFrame = CreateFrame("Frame")
 
 -- Event handler
 eventFrame:SetScript("OnEvent", function(self, event, ...)
