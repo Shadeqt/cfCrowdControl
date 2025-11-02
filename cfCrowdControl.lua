@@ -22,8 +22,8 @@ local activeCCs = {}
 local lastUpdateTime = 0
 
 local iconFrame = CreateFrame("Frame", nil, UIParent)
-iconFrame:SetSize(64, 64)
-iconFrame:SetPoint("CENTER", UIParent, "CENTER", 0, 0)
+iconFrame:SetSize(54, 54)
+iconFrame:SetPoint("CENTER", UIParent, "CENTER", 0, -27)
 iconFrame:Hide()
 
 local texture = iconFrame:CreateTexture(nil, "ARTWORK")
@@ -117,3 +117,23 @@ end)
 
 -- Initialize
 eventFrame:RegisterEvent("LOSS_OF_CONTROL_UPDATE")
+
+-- Slash command to test icon display
+SLASH_CFCC1 = "/cfcc"
+SlashCmdList["CFCC"] = function(msg)
+	-- Create a test CC with stun icon
+	local testCC = {
+		locType = "STUN",
+		iconTexture = "Interface\\Icons\\Ability_Warrior_WarCry",
+		startTime = GetTime(),
+		duration = 15, -- 5 second duration
+	}
+
+	print("cfCrowdControl: Triggering test icon for 5 seconds")
+	UpdateIconDisplay(testCC)
+	
+	-- Hide icon after duration expires
+	C_Timer.After(15, function()
+		iconFrame:Hide()
+	end)
+end
