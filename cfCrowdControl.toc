@@ -6,3 +6,4 @@
 
 # Core module
 cfCrowdControl.lua
+Settings.lua
