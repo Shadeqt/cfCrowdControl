@@ -1,9 +1,11 @@
 ## Interface: 11508
 ## Title:     cfCrowdControl
-## Notes:     Optimized CC display with priority system, redundancy filtering, and cooldown spirals
+## Notes:     Shows active crowd-control effects with priority and cooldown spiral
 ## Author:    Cowfoot
 ## Version:   1.0
+## SavedVariables: cfCrowdControlDB
 
-# Core module
-cfCrowdControl.lua
-Settings.lua
+Init.lua
+GUI\_Factory.lua
+GUI\Settings.lua
+Features\CCDisplay.lua
